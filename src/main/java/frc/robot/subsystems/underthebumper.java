@@ -21,6 +21,7 @@ public class underthebumper extends SubsystemBase{
         private Timer AutoTimer1 = new Timer();
     private Timer AutoTimer3 = new Timer();
     private Timer Rumbletime = new Timer();
+    private Timer timer;
 
     private CANSparkMax underbumpR = new CANSparkMax(9,MotorType.kBrushless);
     private CANSparkMax underbumpL = new CANSparkMax(10,MotorType.kBrushless);
@@ -245,6 +246,56 @@ public class underthebumper extends SubsystemBase{
             @Override
             public boolean isFinished() {
                 return !beambreaker.get(); // Check if the setpoint is reached
+            }
+        };}
+        public Command intakeandfeederT(double speed,double feaderf){
+    
+        
+        return new Command() {
+            @Override
+            public void initialize() {
+                
+                
+                timer.start();
+                timer.reset();
+            }
+    
+            @Override
+            public void execute() {
+                // Assuming setpid() calculates the speed based on PID
+                
+                // if(beambreaker.get() == true){
+                underbumpL.set(-speed);
+                 underbumpR.set(speed);
+                 FeederMotor.set(-feaderf);
+
+                
+                // else if(!beambreaker.get()){
+                //     underbumpL.set(0);
+                //     underbumpR.set(0);
+                //     FeederMotor.set(0);
+                // }
+               
+
+
+            
+            
+            }
+    
+            @Override
+            public void end(boolean interrupted) {
+                underbumpL.set(0);
+                underbumpR.set(0);
+                FeederMotor.set(0);
+                timer.reset();
+                timer.stop();
+
+                // Stop the motor when the command ends or is interrupted
+            }
+    
+            @Override
+            public boolean isFinished() {
+                return timer.hasElapsed(0.2); // Check if the setpoint is reached
             }
         };}
          public Command intakeandfeederandrumble(double speed,double feaderf){

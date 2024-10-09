@@ -149,7 +149,7 @@ public class RobotContainer
   private final POVButton UnjamButton= new POVButton(operator, 180);
     private final POVButton feaderf= new POVButton(operator, 0);
       private final POVButton outakeunjam= new POVButton(operator, 90);
-    private final POVButton outakeunjam1= new POVButton(operator, 270);
+    private final POVButton outakeunjam1= new POVButton(driver, 270);
   private final JoystickButton climbr = new JoystickButton(driver, XboxController.Button.kBack.value);//p3
    private final JoystickButton climbpul = new JoystickButton(driver, XboxController.Button.kStart.value);//p4
     private final JoystickButton climbpurd = new JoystickButton(driver, XboxController.Button.kLeftStick.value);//p1
@@ -379,8 +379,8 @@ Outake.whileTrue(projectilesub.Outtake(.8)).whileFalse(projectilesub.Outtake(0))
 
   // ).whileFalse(newintake.intakeandfeeder(0, 0));
   intakeButton.whileTrue(
-    new ParallelCommandGroup(
-      new rumbleintake(newintake, driver, 0.5, -0.9) 
+    new SequentialCommandGroup(
+      new rumbleintake(newintake, driver, 0.9, -0.9), newintake.intakeandfeederT(0.2,0.2)
      
 
 
@@ -416,10 +416,10 @@ outakeunjam1.whileTrue(projectilesub.Outtake(-0.5)).whileFalse(projectilesub.Out
   
   
 		
-    autoroate.whileTrue(new autointake(newintake,cam2,drivebase,() -> driver.getLeftY(),
-      () -> driver.getLeftX(), 
+    // autoroate.whileTrue(new autointake(newintake,cam2,drivebase,() -> driver.getLeftY(),
+    //   () -> driver.getLeftX(), 
 
-      () -> driver.getRightX(), () -> false));  
+    //   () -> driver.getRightX(), () -> false));  
 
     // Auto Aim Speaker 
     // driver_limelightButton.whileTrue(
