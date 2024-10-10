@@ -380,7 +380,7 @@ Outake.whileTrue(projectilesub.Outtake(.8)).whileFalse(projectilesub.Outtake(0))
   // ).whileFalse(newintake.intakeandfeeder(0, 0));
   intakeButton.whileTrue(
     new SequentialCommandGroup(
-      new rumbleintake(newintake, driver, 0.9, -0.9), newintake.intakeandfeederT(0.2,0.2)
+      new rumbleintake(newintake, driver, 0.9, -0.8)
      
 
 
@@ -399,7 +399,7 @@ Outake.whileTrue(projectilesub.Outtake(.8)).whileFalse(projectilesub.Outtake(0))
 
 
 
-outakeunjam1.whileTrue(projectilesub.Outtake(-0.5)).whileFalse(projectilesub.Outtake(0));
+outakeunjam1.whileTrue(new ParallelCommandGroup( projectilesub.Outtake(-0.5),newintake.intakeandfeeder(-0.9,0.9))).whileFalse(new ParallelCommandGroup(projectilesub.Outtake(0),newintake.intakeandfeeder(0, 0)));
 
 
 
